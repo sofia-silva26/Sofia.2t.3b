@@ -1,7 +1,7 @@
 :root{
     --cor-principal: #595959dd ;
     --cor-secundaria: #000000; 
-    --cor-destaque: #b0daff;
+    --cor-destaque: #6d6d6d;
     --cor-texto: #ffffff;
 }
 
@@ -10,7 +10,7 @@
 }
 
 body {
-    background-image: url(./tyna_janoch-jellyfish-7704801.jpg);
+    background-image: url(./fundo.jpeg);
     background-size: cover;
     background-position: center;
     color: var(--cor-texto);

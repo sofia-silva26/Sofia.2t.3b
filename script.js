@@ -5,20 +5,7 @@ const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
-    {
-        enunciado: "Qual o nome dos dois irmãos protagonistas da série?",
-
-        alternativas: [
-            {
-                texto: "Sim",
-                afirmacao: ""
-            },
-            {
-                texto: "Lógico",
-                afirmacao: ""
-            }
-        ]
-    },{
+   {
         enunciado: "Qual o nome dos dois irmãos protagonistas da série?",
 
         alternativas: [
@@ -285,3 +272,36 @@ function mostraResultado() {
         caixaAlternativas.textContent = "";
     }
 }
+function mostraAlternativas() {
+    for (const alternativa of perguntaAtual.alternativas) {
+        const botaoAlternativas = document.createElement("button");
+        botaoAlternativas.textContent = alternativa.texto;
+
+        botaoAlternativas.addEventListener("click", () => {
+
+            // Desabilita todos os botões
+            const botoes = caixaAlternativas.querySelectorAll("button");
+
+            botoes.forEach((botao, indice) => {
+                botao.disabled = true;
+
+                if (perguntaAtual.alternativas[indice].afirmacao === "Verdadeiro") {
+                    botao.style.backgroundColor = "green";
+                    botao.style.color = "white";
+                } else {
+                    botao.style.backgroundColor = "red";
+                    botao.style.color = "white";
+                }
+            });
+
+            // Aguarda 1 segundo antes de ir para a próxima pergunta
+            setTimeout(() => {
+                respostaSelecionada(alternativa);
+            }, 1000);
+
+        });
+
+        caixaAlternativas.appendChild(botaoAlternativas);
+    }
+}
+
