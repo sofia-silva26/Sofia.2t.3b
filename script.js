@@ -262,12 +262,12 @@ function respostaSelecionada(opcaoSelecionada) {
 
 function mostraResultado() {
     if (Object.keys(contagemAfirmacoes).length > 0) {
-        caixaPerguntas.innerHTML = '<a class="clique2" href="https://anabarros-22.github.io/anabarros.2T.3B/">Reiniciar Teste</a> Parabéns pela tentativa. De 10 questões, você acertou: ';
+        caixaPerguntas.innerHTML = '<a class="clique2" href="https://sofia-silva26.github.io/Sofia.2t.3b/">Reiniciar Teste</a> Parabéns pela tentativa. De 10 questões, você acertou: ';
         const numeroVerdadeiro = contagemAfirmacoes['Verdadeiro'] || 0;
         textoResultado.textContent = numeroVerdadeiro > 1 ? numeroVerdadeiro : 0;
         caixaAlternativas.textContent = "";
     } else {
-        caixaPerguntas.innerHTML = '<a class="clique2" href="https://anabarros-22.github.io/anabarros.2T.3B/">Reiniciar Teste</a> Parabéns pela tentativa. De 10 questões, você acertou: ';
+        caixaPerguntas.innerHTML = '<a class="clique2" href="https://sofia-silva26.github.io/Sofia.2t.3b/">Reiniciar Teste</a> Parabéns pela tentativa. De 10 questões, você acertou: ';
         textoResultado.textContent = 0;
         caixaAlternativas.textContent = "";
     }
