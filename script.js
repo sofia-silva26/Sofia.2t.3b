@@ -7,7 +7,7 @@ const textoResultado = document.querySelector(".texto-resultado");
 const perguntas = [
    {
         enunciado: "Qual o nome dos dois irmãos protagonistas da série?",
-
+        imagem: "imagens/irmaos.jpeg",
         alternativas: [
             {
                 texto: "Dean e Sam Winchester",

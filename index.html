@@ -1,25 +1,298 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Supernatural</title>
-    <link class="favicon" rel="shortcut icon" href="./icon.png" type="image/x-icon">
+    <title>Quiz Supernatural</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .caixa-principal {
+            background-color: #1e1e1e;
+            padding: 24px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .caixa-perguntas {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .imagem-pergunta {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none; /* A imagem inicia sempre OCULTA */
+        }
+
+        .caixa-alternativas {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #333;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #555;
+        }
+
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.9;
+        }
+
+        .clique2 {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 10px 16px;
+            background-color: #0066cc;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .caixa-resultado {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #4caf50;
+        }
+    </style>
 </head>
 <body>
-    <div class="caixa-principal" >
-        <h2 class="cor-titulo">Teste seus conhecimentos sobre Supernatural</h1>
+
+    <div class="caixa-principal">
         <div class="caixa-perguntas"></div>
+        <img id="imagem-pergunta" class="imagem-pergunta" src="" alt="Imagem da pergunta">
         <div class="caixa-alternativas"></div>
         <div class="caixa-resultado">
-            <p class="texto-resultado">
-                <a class="clique" href="https://sofia-silva26.github.io/Sofia.2t.3b/" >Clique Aqui para acessar o Ranking!</a> 
-            </p>
+            <span class="texto-resultado"></span>
         </div>
     </div>
-    <script src="script.js"></script>
-</body>
-   
+
+    <script>
+        const caixaPrincipal = document.querySelector(".caixa-principal");
+        const caixaPerguntas = document.querySelector(".caixa-perguntas");
+        const caixaAlternativas = document.querySelector(".caixa-alternativas");
+        const caixaResultado = document.querySelector(".caixa-resultado");
+        const textoResultado = document.querySelector(".texto-resultado");
+        const elementoImagem = document.getElementById("imagem-pergunta");
+
+        const perguntas = [
+            {
+                enunciado: "Qual o nome dos dois irmãos protagonistas da série?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Dean e Sam Winchester", afirmacao: "Verdadeiro" },
+                    { texto: "John e Bobby Winchester", afirmacao: "Falso" },
+                    { texto: "Dean e Adam Winchester", afirmacao: "Falso" },
+                    { texto: "Sam e Jack Winchester", afirmacao: "Falso" }
+                ]
+            },
+            {
+                enunciado: "Qual é o nome do carro que Dean dirige na série?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Ford Mustang 1965", afirmacao: "Falso" },
+                    { texto: "Chevrolet Impala 1967", afirmacao: "Verdadeiro" },
+                    { texto: "Chevrolet Camaro 1969", afirmacao: "Falso" },
+                    { texto: "Dodge Charger 1970", afirmacao: "Falso" }
+                ]
+            },
+            {
+                enunciado: "Qual criatura os irmãos caçam no primeiro episódio da série?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Mulher de Branco", afirmacao: "Verdadeiro" },
+                    { texto: "Vampiro", afirmacao: "Falso" },
+                    { texto: "Fantasma", afirmacao: "Falso" },
+                    { texto: "Lobisomem", afirmacao: "Falso" }      
+                ]
+            },
+            {
+                enunciado: "Quem é o anjo que ajuda os irmãos Winchester em várias temporadas?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Gabriel", afirmacao: "Falso" },
+                    { texto: "Rafael", afirmacao: "Falso" },
+                    { texto: "Michael", afirmacao: "Falso" },
+                    { texto: "Castiel", afirmacao: "Verdadeiro" }
+                ]
+            },
+            {
+                enunciado: "Qual é o apelido que Dean costuma dar ao anjo Castiel?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Cas", afirmacao: "Verdadeiro" },
+                    { texto: "Casi", afirmacao: "Falso" },
+                    { texto: "Cassy", afirmacao: "Falso" },
+                    { texto: "Angel", afirmacao: "Falso" }
+                ]
+            },
+            {
+                enunciado: "Qual é o nome do pai dos irmãos Winchester?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Bobby Winchester", afirmacao: "Falso" },
+                    { texto: "John Winchester", afirmacao: "Verdadeiro" },
+                    { texto: "Samuel Winchester", afirmacao: "Falso" },
+                    { texto: "Michael Winchester", afirmacao: "Falso" }
+                ]
+            },
+            {
+                enunciado: "Em qual canal a série Supernatural foi originalmente exibida nos Estados Unidos?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "The CW", afirmacao: "Verdadeiro" },
+                    { texto: "NBC", afirmacao: "Falso" },
+                    { texto: "FOX", afirmacao: "Falso" },
+                    { texto: "ABC", afirmacao: "Falso" }    
+                ]
+            },
+            {
+                enunciado: "Qual é o nome do demônio conhecido por possuir olhos amarelos?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Crowley", afirmacao: "Falso" },
+                    { texto: "Azazel", afirmacao: "Verdadeiro" },
+                    { texto: "Alastair", afirmacao: "Falso" },
+                    { texto: "Abaddon", afirmacao: "Falso" }
+                ]
+            },
+            {
+                enunciado: "Quantas temporadas a série Supernatural possui?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "12 temporadas", afirmacao: "Falso" },
+                    { texto: "13 temporadas", afirmacao: "Falso" },
+                    { texto: "14 temporadas", afirmacao: "Falso" },
+                    { texto: "15 temporadas", afirmacao: "Verdadeiro" }
+                ]
+            },
+            {
+                enunciado: "Qual é o nome do demônio que se torna um aliado dos irmãos Winchester e governa o Inferno?",
+                imagem: "imagens/irmaos.jpeg",
+                alternativas: [
+                    { texto: "Azazel", afirmacao: "Falso" },
+                    { texto: "Abaddon", afirmacao: "Falso" },
+                    { texto: "Crowley", afirmacao: "Verdadeiro" },
+                    { texto: "Alastair", afirmacao: "Falso" }
+                ]
+            }    
+        ];
+
+        let atual = 0;
+        let perguntaAtual;
+        let contagemAfirmacoes = {};
+
+        function mostraPergunta() {
+            if (atual >= perguntas.length) {
+                mostraResultado();
+                return;
+            }
+            perguntaAtual = perguntas[atual];
+            caixaPerguntas.textContent = perguntaAtual.enunciado;
+            caixaAlternativas.textContent = "";
+
+            // Garante que a imagem comece OCULTA ao carregar uma nova pergunta
+            elementoImagem.style.display = "none";
+            elementoImagem.src = "";
+
+            mostraAlternativas();
+        }
+
+        function mostraAlternativas() {
+            for (const alternativa of perguntaAtual.alternativas) {
+                const botaoAlternativas = document.createElement("button");
+                botaoAlternativas.textContent = alternativa.texto;
+
+                botaoAlternativas.addEventListener("click", () => {
+                    // SE a pergunta atual tiver uma imagem, ela é mostrada AQUI (no clique)
+                    if (perguntaAtual.imagem) {
+                        elementoImagem.src = perguntaAtual.imagem;
+                        elementoImagem.style.display = "block";
+                    }
+
+                    const botoes = caixaAlternativas.querySelectorAll("button");
+
+                    // Revela se as respostas estão certas/erradas e desabilita os botões
+                    botoes.forEach((botao, indice) => {
+                        botao.disabled = true;
+
+                        if (perguntaAtual.alternativas[indice].afirmacao === "Verdadeiro") {
+                            botao.style.backgroundColor = "green";
+                            botao.style.color = "white";
+                        } else {
+                            botao.style.backgroundColor = "red";
+                            botao.style.color = "white";
+                        }
+                    });
+
+                    // Aguarda 1,5 segundo para dar tempo de ver a imagem e a resposta antes de mudar
+                    setTimeout(() => {
+                        respostaSelecionada(alternativa);
+                    }, 1500);
+                });
+
+                caixaAlternativas.appendChild(botaoAlternativas);
+            }
+        }
+
+        function respostaSelecionada(opcaoSelecionada) {
+            const afirmacaoSelecionada = opcaoSelecionada.afirmacao;
+            if (contagemAfirmacoes.hasOwnProperty(afirmacaoSelecionada)) {
+                contagemAfirmacoes[afirmacaoSelecionada]++;
+            } else {
+                contagemAfirmacoes[afirmacaoSelecionada] = 1;
+            }
+            
+            atual++;
+            mostraPergunta();
+        }
+
+        function mostraResultado() {
+            elementoImagem.style.display = "none";
+            caixaPerguntas.innerHTML = '<a class="clique2" href="https://sofia-silva26.github.io/Sofia.2t.3b/">Reiniciar Teste</a><br>Parabéns pela tentativa. De 10 questões, você acertou:';
+            
+            const numeroVerdadeiro = contagemAfirmacoes['Verdadeiro'] || 0;
+            textoResultado.textContent = numeroVerdadeiro;
+            caixaAlternativas.textContent = "";
+        }
+
+        mostraPergunta();
+    </script>
+
 </body>
 </html>
